@@ -9412,21 +9412,22 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.RotateTowardAngle,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
-		C3.Plugins.Keyboard.Cnds.OnKey,
+		C3.Plugins.progressbar.Acts.SetProgress,
+		C3.Plugins.progressbar.Exps.Progress,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
+		C3.Plugins.Sprite.Acts.SubInstanceVar,
+		C3.Plugins.Keyboard.Cnds.OnKey,
 		C3.Plugins.Mouse.Cnds.IsButtonDown,
 		C3.Plugins.Mouse.Cnds.IsOverObject,
 		C3.Plugins.Sprite.Cnds.CompareY,
 		C3.Plugins.Mouse.Exps.Y,
-		C3.Plugins.System.Cnds.TriggerOnce,
+		C3.Plugins.Sprite.Cnds.CompareX,
+		C3.Plugins.Mouse.Exps.X,
 		C3.Plugins.Touch.Exps.YAt,
-		C3.Plugins.progressbar.Exps.Progress,
-		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
-		C3.Plugins.progressbar.Acts.SetProgress,
 		C3.Plugins.System.Cnds.Every,
-		C3.Plugins.Sprite.Cnds.CompareX,
+		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Acts.SetX,
 		C3.Plugins.System.Exps.scrollx,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
@@ -9651,7 +9652,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (260 + (20 * v0.GetValue()));
+			return () => (300 + (20 * v0.GetValue()));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -9670,18 +9671,61 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 1.5);
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			return () => (n0.ExpInstVar() / (2 * Math.abs((n1.ExpInstVar() - n2.ExpInstVar()))));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() / 2);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() * 2);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			const n4 = p._GetNode(4);
+			const n5 = p._GetNode(5);
+			return () => ((((n0.ExpInstVar() / 12) * (((n1.ExpInstVar() - n2.ExpInstVar()) - 100) / n3.ExpInstVar())) * n4.ExpInstVar()) * n5.ExpInstVar());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 600);
+		},
 		() => 5,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0() + 40);
 		},
-		() => 2,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() + 80);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() - 30);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() + 30);
+		},
 		() => 3,
-		() => 4,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() - 80);
+		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0() - 40);
 		},
+		() => 4,
+		() => 2,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0(1) + 40);
@@ -9733,37 +9777,25 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			const n4 = p._GetNode(4);
-			const n5 = p._GetNode(5);
-			return () => ((((n0.ExpInstVar() / 12) * (((n1.ExpInstVar() - n2.ExpInstVar()) - 100) / n3.ExpInstVar())) * n4.ExpInstVar()) * n5.ExpInstVar());
-		},
-		p => {
-			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 1);
 		},
 		() => 230,
 		() => 10,
+		() => 340,
 		() => 201,
 		() => 20,
 		() => 200,
 		() => 160,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 2);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() / 2);
-		},
 		() => 640,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 12);
 		},
-		() => 30,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 150);
+		},
+		() => 50,
 		() => "Online",
 		() => "",
 		p => {
