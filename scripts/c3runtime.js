@@ -12150,15 +12150,13 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Mouse.Exps.X,
 		C3.Plugins.Touch.Exps.YAt,
 		C3.Plugins.Touch.Exps.XAt,
+		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
-		C3.Plugins.System.Cnds.Every,
-		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Acts.SetX,
 		C3.Plugins.System.Exps.scrollx,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.System.Acts.ScrollX,
-		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Sprite.Acts.SetAnimSpeed,
 		C3.Behaviors.custom.Acts.SetSpeed,
 		C3.Plugins.Text.Acts.SetText,
@@ -12189,8 +12187,13 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.AnimationName,
 		C3.Plugins.Photon.Acts.setMyRoomIsOpen,
 		C3.Plugins.System.Acts.Signal,
+		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.System.Acts.WaitForSignal,
+		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.TiledBg.Acts.SetWidth,
+		C3.Plugins.TiledBg.Exps.X,
+		C3.Plugins.TiledBg.Exps.Width,
+		C3.Plugins.TiledBg.Cnds.CompareWidth,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
 		C3.Plugins.System.Acts.AddVar,
@@ -12263,8 +12266,12 @@ self.C3_JsPropNameTable = [
 	{ScaleWay: 0},
 	{ScaleWaySquare: 0},
 	{ScaleWayFull: 0},
+	{RedScale: 0},
+	{гаечныйКлюч: 0},
 	{Cards: 0},
 	{PlayerCount: 0},
+	{coefficientForScale: 0},
+	{MaxHPPlayer: 0},
 	{CountCars: 0},
 	{Car1_Global: 0},
 	{Car2_Global: 0},
@@ -12392,7 +12399,7 @@ self.C3_ExpressionFuncs = [
 		() => 300,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 3);
+			return () => (n0.ExpInstVar() / 4);
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12408,6 +12415,9 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (n0.ExpInstVar() / (2 + (v1.GetValue() / 2)));
 		},
+		() => 140,
+		() => 203,
+		() => 2,
 		p => {
 			const n0 = p._GetNode(0);
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -12464,7 +12474,6 @@ self.C3_ExpressionFuncs = [
 			return () => (f0() - 40);
 		},
 		() => 4,
-		() => 2,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0(1) + 40);
@@ -12530,17 +12539,19 @@ self.C3_ExpressionFuncs = [
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 1650)) * n2.ExpInstVar());
 		},
+		() => 205,
+		() => 0.16666666666666666,
+		() => 230,
+		() => 0.006666666666666667,
+		() => 0.0033333333333333335,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 1);
 		},
-		() => 230,
-		() => 10,
-		() => 340,
-		() => 201,
-		() => 20,
-		() => 200,
-		() => 160,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 1);
+		},
 		() => 640,
 		p => {
 			const n0 = p._GetNode(0);
@@ -12550,7 +12561,7 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 150);
 		},
-		() => 50,
+		() => 30,
 		() => "Online",
 		() => "",
 		p => {
@@ -12622,6 +12633,7 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			return () => (and(f0(), "|") + n1.ExpObject());
 		},
+		() => 160,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -12688,7 +12700,19 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (((n0.ExpObject() - 130) / 4.13) + 37);
+			const n1 = p._GetNode(1);
+			return () => (n0.ExpObject() + n1.ExpObject());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			return () => ((v0.GetValue() - n1.ExpInstVar()) * v2.GetValue());
+		},
+		() => 643,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (643 / n0.ExpInstVar());
 		},
 		() => 0.1,
 		p => {
