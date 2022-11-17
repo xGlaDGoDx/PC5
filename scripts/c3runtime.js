@@ -12136,12 +12136,16 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.Angle,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
+		C3.Plugins.System.Acts.SetVar,
+		C3.Plugins.System.Cnds.CompareVar,
+		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.progressbar.Acts.SetProgress,
 		C3.Plugins.progressbar.Exps.Progress,
+		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
-		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.Keyboard.Cnds.OnKey,
+		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.Mouse.Cnds.IsButtonDown,
 		C3.Plugins.Mouse.Cnds.IsOverObject,
 		C3.Plugins.Sprite.Cnds.CompareY,
@@ -12150,7 +12154,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Mouse.Exps.X,
 		C3.Plugins.Touch.Exps.YAt,
 		C3.Plugins.Touch.Exps.XAt,
-		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
 		C3.Plugins.Sprite.Acts.SetX,
@@ -12160,7 +12163,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetAnimSpeed,
 		C3.Behaviors.custom.Acts.SetSpeed,
 		C3.Plugins.Text.Acts.SetText,
-		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.Sprite.Cnds.IsOutsideLayout,
 		C3.Plugins.Photon.Acts.reset,
 		C3.Plugins.System.Acts.Wait,
@@ -12177,7 +12179,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.int,
 		C3.Plugins.System.Exps.tokenat,
 		C3.Plugins.Photon.Exps.EventData,
-		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Photon.Exps.ActorCount,
 		C3.Plugins.Sprite.Acts.MoveToLayer,
 		C3.Plugins.Sprite.Acts.SetAnim,
@@ -12197,7 +12198,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
 		C3.Plugins.System.Acts.AddVar,
-		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Sprite.Acts.SetVisible,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
@@ -12211,7 +12211,6 @@ self.C3_JsPropNameTable = [
 	{Мышь: 0},
 	{Gas: 0},
 	{Клавиатура: 0},
-	{Road: 0},
 	{UserID: 0},
 	{Speed: 0},
 	{Turnovers: 0},
@@ -12221,6 +12220,7 @@ self.C3_JsPropNameTable = [
 	{HP: 0},
 	{Turbo: 0},
 	{TempTrans: 0},
+	{Boost: 0},
 	{НастраиваемоеДвижение: 0},
 	{Player: 0},
 	{ОграничитьСценой: 0},
@@ -12260,7 +12260,6 @@ self.C3_JsPropNameTable = [
 	{Trans_T: 0},
 	{Back: 0},
 	{GameScore: 0},
-	{Background: 0},
 	{BlueBack: 0},
 	{Якорь: 0},
 	{ScaleWay: 0},
@@ -12268,10 +12267,13 @@ self.C3_JsPropNameTable = [
 	{ScaleWayFull: 0},
 	{RedScale: 0},
 	{гаечныйКлюч: 0},
+	{Road: 0},
+	{Background: 0},
 	{Cards: 0},
 	{PlayerCount: 0},
 	{coefficientForScale: 0},
 	{MaxHPPlayer: 0},
+	{SlowFromBadJumpStages: 0},
 	{CountCars: 0},
 	{Car1_Global: 0},
 	{Car2_Global: 0},
@@ -12415,6 +12417,13 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (n0.ExpInstVar() / (2 + (v1.GetValue() / 2)));
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() - 2);
+		},
+		() => 0.3,
+		() => 30,
+		() => 0.15,
 		() => 140,
 		() => 203,
 		() => 2,
@@ -12441,11 +12450,8 @@ self.C3_ExpressionFuncs = [
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
 			const n6 = p._GetNode(6);
-			return () => (((((n0.ExpInstVar() / 12) * ((250 - n1.ExpInstVar()) / (100 - v2.GetValue()))) * n3.ExpInstVar()) * n4.ExpInstVar()) * ((n5.ExpInstVar() - n6.ExpInstVar()) / 450));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 1200);
+			const v7 = p._GetNode(7).GetVar();
+			return () => ((((((n0.ExpInstVar() / 12) * ((((-Math.pow((n1.ExpInstVar() - 180), 2)) / 180) + 180) / (100 - v2.GetValue()))) * n3.ExpInstVar()) * n4.ExpInstVar()) * ((n5.ExpInstVar() - n6.ExpInstVar()) / 450)) * v7.GetValue());
 		},
 		() => 5,
 		p => {
@@ -12540,13 +12546,16 @@ self.C3_ExpressionFuncs = [
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 1650)) * n2.ExpInstVar());
 		},
 		() => 205,
-		() => 0.16666666666666666,
-		() => 230,
-		() => 0.006666666666666667,
-		() => 0.0033333333333333335,
+		() => 0.05555555555555555,
+		() => 0.0022222222222222222,
+		() => 0.0011111111111111111,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 400);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12561,7 +12570,14 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 150);
 		},
-		() => 30,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((-n0.ExpInstVar()) * 2);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((-n0.ExpInstVar()) * 1.5);
+		},
 		() => "Online",
 		() => "",
 		p => {
@@ -12592,7 +12608,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (30 + (5 * v0.GetValue()));
+			return () => (100 + (5 * v0.GetValue()));
 		},
 		() => "CarTwo",
 		p => {
@@ -12602,7 +12618,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (35 + (5 * v0.GetValue()));
+			return () => (105 + (5 * v0.GetValue()));
 		},
 		() => "CarThree",
 		p => {
@@ -12612,7 +12628,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (40 + (5 * v0.GetValue()));
+			return () => (110 + (5 * v0.GetValue()));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
