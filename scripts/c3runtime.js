@@ -12125,10 +12125,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.Sprite.Exps.X,
 		C3.Plugins.Sprite.Exps.Y,
-		C3.Plugins.Keyboard.Cnds.IsKeyDown,
-		C3.Plugins.Touch.Cnds.IsTouchingObject,
-		C3.Plugins.Sprite.Acts.SetAnimFrame,
-		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.Photon.Exps.MyActorNr,
 		C3.Plugins.Sprite.Acts.MoveToTop,
 		C3.Plugins.Sprite.Cnds.IsBetweenAngles,
@@ -12139,6 +12135,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.System.Acts.SubVar,
+		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.progressbar.Acts.SetProgress,
 		C3.Plugins.progressbar.Exps.Progress,
@@ -12152,8 +12149,12 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Mouse.Exps.Y,
 		C3.Plugins.Sprite.Cnds.CompareX,
 		C3.Plugins.Mouse.Exps.X,
+		C3.Plugins.Touch.Cnds.IsTouchingObject,
 		C3.Plugins.Touch.Exps.YAt,
 		C3.Plugins.Touch.Exps.XAt,
+		C3.Plugins.System.Acts.Wait,
+		C3.Plugins.Keyboard.Cnds.IsKeyDown,
+		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
 		C3.Plugins.Sprite.Acts.SetX,
@@ -12165,7 +12166,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.Sprite.Cnds.IsOutsideLayout,
 		C3.Plugins.Photon.Acts.reset,
-		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.Photon.Acts.connect,
 		C3.Plugins.Photon.Cnds.onJoinedLobby,
@@ -12274,6 +12274,7 @@ self.C3_JsPropNameTable = [
 	{coefficientForScale: 0},
 	{MaxHPPlayer: 0},
 	{SlowFromBadJumpStages: 0},
+	{StopTurnovers: 0},
 	{CountCars: 0},
 	{Car1_Global: 0},
 	{Car2_Global: 0},
@@ -12391,17 +12392,17 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 1,
 		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpInstVar();
-		},
-		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
 		},
 		() => 300,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 4);
+			return () => (n0.ExpInstVar() / 2);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpInstVar();
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12510,6 +12511,18 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 250)) * n2.ExpInstVar());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() + 100);
+		},
+		() => 0.5,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			return () => (((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 300) * ((251 - n2.ExpInstVar()) / 250)) * n3.ExpInstVar());
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12680,10 +12693,6 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(2, 5);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 2);
 		},
 		p => {
 			const n0 = p._GetNode(0);
