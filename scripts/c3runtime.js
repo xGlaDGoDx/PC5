@@ -12461,7 +12461,7 @@ self.C3_ExpressionFuncs = [
 		() => 6,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 100);
+			return () => (n0.ExpInstVar() + 150);
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12555,7 +12555,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => and(and(f0(), "|"), 760);
+			return () => and(and(f0(), "|"), 560);
 		},
 		() => 130,
 		p => {
@@ -12601,7 +12601,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => and(and(f0(), "|"), 680);
+			return () => and(and(f0(), "|"), 480);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -12631,7 +12631,7 @@ self.C3_ExpressionFuncs = [
 			return () => f0(f1(), 1, "|");
 		},
 		() => "Bot",
-		() => 580,
+		() => 380,
 		() => 1111,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
