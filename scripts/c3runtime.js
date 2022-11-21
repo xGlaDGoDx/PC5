@@ -12127,36 +12127,31 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.Photon.Exps.MyActorNr,
 		C3.Plugins.Sprite.Acts.MoveToTop,
-		C3.Plugins.Sprite.Cnds.IsBetweenAngles,
-		C3.Plugins.Sprite.Acts.RotateTowardAngle,
 		C3.Plugins.Sprite.Exps.Angle,
+		C3.Plugins.Sprite.Acts.RotateTowardAngle,
+		C3.Plugins.System.Cnds.Else,
+		C3.Plugins.Sprite.Cnds.IsBetweenAngles,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.System.Acts.SubVar,
-		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.System.Exps.random,
-		C3.Plugins.progressbar.Acts.SetProgress,
-		C3.Plugins.progressbar.Exps.Progress,
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
 		C3.Plugins.Keyboard.Cnds.OnKey,
 		C3.Plugins.Sprite.Acts.SubInstanceVar,
-		C3.Plugins.Mouse.Cnds.IsButtonDown,
-		C3.Plugins.Mouse.Cnds.IsOverObject,
-		C3.Plugins.Sprite.Cnds.CompareY,
-		C3.Plugins.Mouse.Exps.Y,
-		C3.Plugins.Sprite.Cnds.CompareX,
-		C3.Plugins.Mouse.Exps.X,
-		C3.Plugins.Touch.Cnds.IsTouchingObject,
-		C3.Plugins.Touch.Exps.YAt,
-		C3.Plugins.Touch.Exps.XAt,
-		C3.Plugins.System.Acts.Wait,
+		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
+		C3.Plugins.Touch.Cnds.OnTapGestureObject,
+		C3.Plugins.Touch.Cnds.OnDoubleTapGestureObject,
+		C3.Plugins.progressbar.Exps.Progress,
 		C3.Plugins.Keyboard.Cnds.IsKeyDown,
+		C3.Plugins.Touch.Cnds.IsTouchingObject,
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
+		C3.Plugins.progressbar.Acts.SetProgress,
+		C3.Plugins.Sprite.Cnds.CompareX,
 		C3.Plugins.Sprite.Acts.SetX,
 		C3.Plugins.System.Exps.scrollx,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
@@ -12166,6 +12161,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.Sprite.Cnds.IsOutsideLayout,
 		C3.Plugins.Photon.Acts.reset,
+		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.Photon.Acts.connect,
 		C3.Plugins.Photon.Cnds.onJoinedLobby,
@@ -12195,7 +12191,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.TiledBg.Exps.X,
 		C3.Plugins.TiledBg.Exps.Width,
 		C3.Plugins.TiledBg.Cnds.CompareWidth,
-		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
@@ -12395,10 +12390,19 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
 		},
-		() => 300,
+		() => 250,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 2);
+			return () => (n0.ExpObject() + 180);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 5);
+		},
+		() => 90,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 180);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12437,11 +12441,10 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() / 2);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() * 2);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			return () => (n0.ExpInstVar() * (f1(2, 3) / Math.abs((n2.ExpInstVar() - n3.ExpInstVar()))));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12455,75 +12458,27 @@ self.C3_ExpressionFuncs = [
 			return () => ((((((n0.ExpInstVar() / 12) * ((((-Math.pow((n1.ExpInstVar() - 180), 2)) / 180) + 180) / (100 - v2.GetValue()))) * n3.ExpInstVar()) * n4.ExpInstVar()) * ((n5.ExpInstVar() - n6.ExpInstVar()) / 450)) * v7.GetValue());
 		},
 		() => 5,
+		() => 6,
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() + 40);
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() + 100);
 		},
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() + 80);
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			const n4 = p._GetNode(4);
+			const n5 = p._GetNode(5);
+			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 200) * ((251 - n2.ExpInstVar()) / 250)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 10)));
 		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() - 30);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() + 30);
-		},
-		() => 3,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() - 80);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() - 40);
-		},
-		() => 4,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0(1) + 40);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0(1) + 80);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0(1) - 30);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0(1) + 30);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0(1) - 80);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0(1) - 40);
-		},
-		() => 250,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 250)) * n2.ExpInstVar());
 		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 100);
-		},
-		() => 0.5,
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			return () => (((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 300) * ((251 - n2.ExpInstVar()) / 250)) * n3.ExpInstVar());
-		},
+		() => 3,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -12546,6 +12501,7 @@ self.C3_ExpressionFuncs = [
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 850)) * n2.ExpInstVar());
 		},
+		() => 4,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -12693,6 +12649,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(2, 5);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 2);
 		},
 		p => {
 			const n0 = p._GetNode(0);
