@@ -12141,12 +12141,12 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
 		C3.Plugins.Keyboard.Cnds.OnKey,
-		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.System.Acts.Signal,
 		C3.Plugins.Touch.Cnds.OnDoubleTapGestureObject,
 		C3.Plugins.System.Acts.WaitForSignal,
+		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
 		C3.Plugins.progressbar.Exps.Progress,
 		C3.Plugins.Keyboard.Cnds.IsKeyDown,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
@@ -12415,9 +12415,8 @@ self.C3_ExpressionFuncs = [
 			return () => (300 + (10 * v0.GetValue()));
 		},
 		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const n1 = p._GetNode(1);
-			return () => (((250 + (10 * v0.GetValue())) - n1.ExpObject()) / 450);
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 60);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12446,7 +12445,7 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			const n2 = p._GetNode(2);
 			const n3 = p._GetNode(3);
-			return () => (n0.ExpInstVar() * (f1(2, 3) / Math.abs((n2.ExpInstVar() - n3.ExpInstVar()))));
+			return () => ((n0.ExpInstVar() * f1(2, 3)) * Math.abs((n2.ExpInstVar() - n3.ExpInstVar())));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12461,12 +12460,17 @@ self.C3_ExpressionFuncs = [
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
 			const n6 = p._GetNode(6);
-			const n7 = p._GetNode(7);
-			const v8 = p._GetNode(8).GetVar();
-			return () => ((((((n0.ExpInstVar() / 12) * ((n1.ExpInstVar() - n2.ExpInstVar()) / (100 - v3.GetValue()))) * n4.ExpInstVar()) * n5.ExpInstVar()) * ((n6.ExpInstVar() - n7.ExpInstVar()) / 450)) * v8.GetValue());
+			const v7 = p._GetNode(7).GetVar();
+			return () => ((((((n0.ExpInstVar() / 12) * (((n1.ExpInstVar() - n2.ExpInstVar()) + 1) / ((100 - v3.GetValue()) * 3))) * n4.ExpInstVar()) * n5.ExpInstVar()) * (n6.ExpInstVar() / 80)) * v7.GetValue());
 		},
 		() => 5,
+		() => 0.2,
 		() => "go",
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => (((n0.ExpInstVar() - n1.ExpInstVar()) + 40) / 40);
+		},
 		() => 6,
 		p => {
 			const n0 = p._GetNode(0);
@@ -12479,7 +12483,7 @@ self.C3_ExpressionFuncs = [
 			const n3 = p._GetNode(3);
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
-			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 200) * (n2.ExpInstVar() / 200)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 10)));
+			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 200) * (n2.ExpInstVar() / 150)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 1)));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12488,7 +12492,10 @@ self.C3_ExpressionFuncs = [
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 250)) * n2.ExpInstVar());
 		},
 		() => 3,
-		() => 240,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((n0.ExpInstVar() / 4) + 40);
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -12499,14 +12506,20 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() + 0.5);
 		},
-		() => 360,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((n0.ExpInstVar() / 3) + 100);
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 650)) * n2.ExpInstVar());
 		},
-		() => 480,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((n0.ExpInstVar() / 2) + 80);
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -12514,14 +12527,16 @@ self.C3_ExpressionFuncs = [
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 850)) * n2.ExpInstVar());
 		},
 		() => 4,
-		() => 600,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((n0.ExpInstVar() / 1.5) + 70);
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 1050)) * n2.ExpInstVar());
 		},
-		() => 800,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -12556,11 +12571,11 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((-n0.ExpInstVar()) * 6);
+			return () => ((-n0.ExpInstVar()) * 12);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((-n0.ExpInstVar()) * 4);
+			return () => ((-n0.ExpInstVar()) * 2);
 		},
 		() => "Online",
 		() => "",
@@ -12588,7 +12603,7 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => ((460 + (20 * v0.GetValue())) - (10 * v1.GetValue()));
+			return () => ((400 + (20 * v0.GetValue())) - (10 * v1.GetValue()));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12598,7 +12613,7 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => ((560 + (25 * v0.GetValue())) - (10 * v1.GetValue()));
+			return () => ((450 + (25 * v0.GetValue())) - (10 * v1.GetValue()));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12608,7 +12623,7 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => ((700 + (30 * v0.GetValue())) - (13 * v1.GetValue()));
+			return () => ((500 + (30 * v0.GetValue())) - (13 * v1.GetValue()));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12646,6 +12661,7 @@ self.C3_ExpressionFuncs = [
 			return () => f0(f1(), 1, "|");
 		},
 		() => "Bot",
+		() => 100,
 		() => 380,
 		() => 1111,
 		p => {
@@ -12825,6 +12841,7 @@ self.C3_ExpressionFuncs = [
 			return () => n0.ExpInstVar_Family();
 		},
 		() => "SpawnCar",
+		() => 360,
 		() => "Не установлен",
 		() => "Progress",
 		() => "propcar1",
