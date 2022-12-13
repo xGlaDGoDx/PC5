@@ -12430,22 +12430,21 @@ self.C3_ExpressionFuncs = [
 			const v3 = p._GetNode(3).GetVar();
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
-			return () => ((((n0.ExpInstVar() / 4) * (((n1.ExpInstVar() - n2.ExpInstVar()) + 1) / ((100 - v3.GetValue()) * 3))) * n4.ExpInstVar()) * (n5.ExpInstVar() / 60));
+			return () => ((((n0.ExpInstVar() / 4) * (((n1.ExpInstVar() - n2.ExpInstVar()) + 10) / ((100 - v3.GetValue()) * 3))) * n4.ExpInstVar()) * (n5.ExpInstVar() / 60));
 		},
-		() => 0.02,
+		() => 0.001,
 		() => 150,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 60);
+			return () => (n0.ExpInstVar() + 30);
 		},
+		() => 5,
 		() => 100,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() - 40);
 		},
-		() => 5,
-		() => 140,
-		() => 203,
+		() => 50,
 		p => {
 			const n0 = p._GetNode(0);
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -12467,16 +12466,12 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "go",
 		() => 2,
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => (((n0.ExpInstVar() - n1.ExpInstVar()) + 40) / 40);
-		},
 		() => 6,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() + 160);
 		},
+		() => 22,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const n1 = p._GetNode(1);
@@ -12484,7 +12479,7 @@ self.C3_ExpressionFuncs = [
 			const n3 = p._GetNode(3);
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
-			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 120) * (n2.ExpInstVar() / 150)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 1)));
+			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 120) * ((n2.ExpInstVar() - 22) / 150)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 1)));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12546,6 +12541,8 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 205,
 		() => 0.05555555555555555,
+		() => 140,
+		() => 203,
 		() => 0.0022222222222222222,
 		() => 0.0011111111111111111,
 		() => 249,
@@ -12601,6 +12598,7 @@ self.C3_ExpressionFuncs = [
 			const f2 = p._GetNode(2).GetBoundMethod();
 			return () => f0(f1(f2(), 0, "|"));
 		},
+		() => 23,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
