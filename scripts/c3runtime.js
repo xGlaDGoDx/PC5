@@ -12432,17 +12432,18 @@ self.C3_ExpressionFuncs = [
 			const n5 = p._GetNode(5);
 			return () => ((((n0.ExpInstVar() / 4) * (((n1.ExpInstVar() - n2.ExpInstVar()) + 10) / ((100 - v3.GetValue()) * 3))) * n4.ExpInstVar()) * (n5.ExpInstVar() / 60));
 		},
-		() => 0.001,
-		() => 150,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 30);
+			return () => (n0.ExpInstVar() + 50);
 		},
+		() => 0.001,
+		() => 150,
 		() => 5,
 		() => 100,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() - 40);
+			const n1 = p._GetNode(1);
+			return () => (n0.ExpInstVar() / (6 - n1.ExpInstVar()));
 		},
 		() => 50,
 		p => {
@@ -12490,7 +12491,7 @@ self.C3_ExpressionFuncs = [
 		() => 3,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 4) - 50);
+			return () => (n0.ExpInstVar() / 4);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12504,7 +12505,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 4) + 20);
+			return () => ((n0.ExpInstVar() / 4) + 100);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12514,7 +12515,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 2) + 30);
+			return () => ((n0.ExpInstVar() / 2) + 90);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12525,7 +12526,7 @@ self.C3_ExpressionFuncs = [
 		() => 4,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 1.5) + 50);
+			return () => ((n0.ExpInstVar() / 1.5) + 90);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12561,7 +12562,7 @@ self.C3_ExpressionFuncs = [
 		() => 640,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 12);
+			return () => (n0.ExpInstVar() / 120);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12602,7 +12603,7 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => ((400 + (20 * v0.GetValue())) - (10 * v1.GetValue()));
+			return () => ((500 + (20 * v0.GetValue())) - (10 * v1.GetValue()));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
