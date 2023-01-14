@@ -12125,18 +12125,15 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.Sprite.Exps.X,
 		C3.Plugins.Sprite.Exps.Y,
-		C3.Plugins.Sprite.Exps.Angle,
 		C3.Plugins.Sprite.Acts.RotateTowardAngle,
-		C3.Plugins.System.Cnds.Else,
-		C3.Plugins.Sprite.Cnds.IsBetweenAngles,
-		C3.Plugins.Sprite.Acts.SetInstanceVar,
-		C3.Plugins.System.Cnds.EveryTick,
-		C3.Plugins.Sprite.Acts.AddInstanceVar,
-		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
+		C3.Plugins.System.Cnds.Else,
+		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.System.Exps.random,
+		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.Keyboard.Cnds.OnKey,
+		C3.Plugins.Sprite.Acts.AddInstanceVar,
 		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.System.Acts.SetVar,
@@ -12144,8 +12141,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.WaitForSignal,
 		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.progressbar.Exps.Progress,
+		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Keyboard.Cnds.IsKeyDown,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
+		C3.Plugins.Sprite.Cnds.IsBetweenAngles,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
 		C3.Plugins.progressbar.Acts.SetProgress,
@@ -12194,13 +12193,14 @@ self.C3_JsPropNameTable = [
 	{UserID: 0},
 	{Speed: 0},
 	{Turnovers: 0},
-	{temp: 0},
 	{MaxSpeed: 0},
 	{HP: 0},
 	{Turbo: 0},
 	{TempTrans: 0},
-	{Boost: 0},
 	{MaxSpeedInThisTransmission: 0},
+	{TransCoef: 0},
+	{CircleTurnovers: 0},
+	{Boost: 0},
 	{НастраиваемоеДвижение: 0},
 	{Player: 0},
 	{ОграничитьСценой: 0},
@@ -12382,52 +12382,19 @@ self.C3_ExpressionFuncs = [
 			return () => n0.ExpObject();
 		},
 		() => 1,
-		() => 250,
+		() => 100000,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() + 180);
+			return () => (n0.ExpInstVar() / 625);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 15);
-		},
-		() => 90,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 180);
+			return () => ((249 / 10000) * n0.ExpInstVar());
 		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
 		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => (300 + (10 * v0.GetValue()));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 100);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			return () => (n0.ExpInstVar() / (1.5 + (v1.GetValue() / 2)));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			const v3 = p._GetNode(3).GetVar();
-			const n4 = p._GetNode(4);
-			const n5 = p._GetNode(5);
-			return () => ((((n0.ExpInstVar() / 4) * (((n1.ExpInstVar() - n2.ExpInstVar()) + 10) / ((100 - v3.GetValue()) * 3))) * n4.ExpInstVar()) * (Math.pow(n5.ExpInstVar(), 1.1) / 60));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 50);
-		},
-		() => 0.001,
-		() => 150,
 		() => 2,
 		() => 5,
 		() => 100,
@@ -12436,13 +12403,13 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			return () => (n0.ExpInstVar() / (6 - n1.ExpInstVar()));
 		},
-		() => 50,
+		() => 3800,
 		p => {
 			const n0 = p._GetNode(0);
 			const f1 = p._GetNode(1).GetBoundMethod();
 			const n2 = p._GetNode(2);
 			const n3 = p._GetNode(3);
-			return () => (n0.ExpInstVar() / (f1(3, 3.5) * Math.abs((n2.ExpInstVar() - n3.ExpInstVar()))));
+			return () => (n0.ExpInstVar() / (f1(1.5, 3) * Math.abs((n2.ExpInstVar() - n3.ExpInstVar()))));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12460,9 +12427,9 @@ self.C3_ExpressionFuncs = [
 		() => 6,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 160);
+			return () => (n0.ExpInstVar() + 1000);
 		},
-		() => 22,
+		() => 2040,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const n1 = p._GetNode(1);
@@ -12470,80 +12437,89 @@ self.C3_ExpressionFuncs = [
 			const n3 = p._GetNode(3);
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
-			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 120) * ((n2.ExpInstVar() - 22) / 150)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 1)));
+			return () => ((((Math.abs((v0.GetValue() - n1.ExpInstVar())) / 120) * ((n2.ExpInstVar() - 2040) / 1500)) * n3.ExpInstVar()) * (n4.ExpInstVar() / (n5.ExpInstVar() + 1)));
 		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 50)) * n2.ExpInstVar());
+			const n3 = p._GetNode(3);
+			return () => ((n0.ExpInstVar() * ((n1.ExpInstVar() - n2.ExpInstVar()) / 800000)) / (n3.ExpInstVar() + 1));
+		},
+		() => 10000,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 20)) * n2.ExpInstVar());
+		},
+		() => 4.44,
+		() => 80,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 130)) * n2.ExpInstVar());
+		},
+		() => 2.356,
+		() => 140,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 300)) * n2.ExpInstVar());
 		},
 		() => 3,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 4);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 150)) * n2.ExpInstVar());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 0.5);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 4) + 100);
-		},
+		() => 1.834,
+		() => 200,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 350)) * n2.ExpInstVar());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 2) + 90);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 550)) * n2.ExpInstVar());
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 450)) * n2.ExpInstVar());
 		},
 		() => 4,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => ((n0.ExpInstVar() / 1.5) + 90);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 850)) * n2.ExpInstVar());
-		},
+		() => 1.392,
+		() => 260,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((250 - n1.ExpInstVar()) / 1650)) * n2.ExpInstVar());
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 650)) * n2.ExpInstVar());
 		},
-		() => 205,
+		() => 0.9,
+		() => 300,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 1050)) * n2.ExpInstVar());
+		},
+		() => 9999,
+		() => 8000,
 		() => 0.05555555555555555,
-		() => 140,
-		() => 203,
+		() => 5600,
 		() => 0.0022222222222222222,
 		() => 0.0011111111111111111,
-		() => 249,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (300 + (10 * v0.GetValue()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((270 / ((1.98 / 3.8) * 600)) * n0.ExpInstVar());
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 1);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 400);
+			return () => (n0.ExpInstVar() / 800);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 500);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12573,7 +12549,6 @@ self.C3_ExpressionFuncs = [
 		() => 130,
 		() => 560,
 		() => "",
-		() => 23,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
@@ -12596,7 +12571,7 @@ self.C3_ExpressionFuncs = [
 			return () => ((500 + (30 * v0.GetValue())) - (13 * v1.GetValue()));
 		},
 		() => "Bot",
-		() => 0.5,
+		() => 1000,
 		() => 380,
 		() => 1111,
 		p => {
@@ -12619,6 +12594,7 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 2);
 		},
+		() => 250,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (1.5 * ((250 - n0.ExpInstVar()) / 250));
@@ -12626,6 +12602,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (1.5 * ((250 - n0.ExpInstVar()) / 450));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() + 0.5);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12791,6 +12771,7 @@ self.C3_ExpressionFuncs = [
 			return () => ((100 - v0.GetValue()) * v1.GetValue());
 		},
 		() => 6.81,
+		() => 50,
 		() => -500,
 		() => "Coins",
 		p => {
