@@ -12131,7 +12131,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.System.Exps.random,
-		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.Keyboard.Cnds.OnKey,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
 		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
@@ -12140,6 +12139,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.Signal,
 		C3.Plugins.System.Acts.WaitForSignal,
 		C3.Plugins.System.Cnds.CompareVar,
+		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.progressbar.Exps.Progress,
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Keyboard.Cnds.IsKeyDown,
@@ -12409,18 +12409,6 @@ self.C3_ExpressionFuncs = [
 			const n3 = p._GetNode(3);
 			return () => (n0.ExpInstVar() / (f1(2, 3) * Math.abs((n2.ExpInstVar() - n3.ExpInstVar()))));
 		},
-		p => {
-			const n0 = p._GetNode(0);
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			return () => ((n0.ExpInstVar() * f1(2, 3)) * Math.abs((n2.ExpInstVar() - n3.ExpInstVar())));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => ((n0.ExpInstVar() / n1.ExpInstVar()) * 20);
-		},
 		() => "go",
 		() => 6,
 		p => {
@@ -12499,7 +12487,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((270 / ((1.98 / 3.8) * 600)) * n0.ExpInstVar());
+			return () => ((270 / 300) * n0.ExpInstVar());
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12507,11 +12495,15 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 800);
+			return () => (n0.ExpInstVar() / 4000);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 500);
+			return () => (n0.ExpInstVar() / 3000);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => ((270 / ((1.98 / 3.8) * 600)) * n0.ExpInstVar());
 		},
 		p => {
 			const n0 = p._GetNode(0);
