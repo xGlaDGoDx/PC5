@@ -12199,6 +12199,7 @@ self.C3_JsPropNameTable = [
 	{TempTrans: 0},
 	{MaxSpeedInThisTransmission: 0},
 	{Boost: 0},
+	{MaxSpeedInThisTurn: 0},
 	{НастраиваемоеДвижение: 0},
 	{Player: 0},
 	{ОграничитьСценой: 0},
@@ -12430,7 +12431,8 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			const n3 = p._GetNode(3);
-			return () => ((n0.ExpInstVar() * ((n1.ExpInstVar() - n2.ExpInstVar()) / 600000)) / (n3.ExpInstVar() + 1));
+			const n4 = p._GetNode(4);
+			return () => (((n0.ExpInstVar() * ((n1.ExpInstVar() - n2.ExpInstVar()) / 600000)) / (n3.ExpInstVar() + 1)) * (n4.ExpObject() / 50));
 		},
 		() => 10000,
 		p => {
@@ -12438,6 +12440,12 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 20)) * n2.ExpInstVar());
+		},
+		() => 85,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => (n0.ExpInstVar() / (10000 / n1.ExpInstVar()));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12492,10 +12500,6 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 1);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 4000);
 		},
 		p => {
 			const n0 = p._GetNode(0);
