@@ -12144,6 +12144,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Keyboard.Cnds.IsKeyDown,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
+		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Cnds.IsBetweenAngles,
 		C3.Plugins.progressbar.Cnds.CompareProgress,
 		C3.Plugins.progressbar.Exps.Maximum,
@@ -12167,7 +12168,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetVisible,
 		C3.Plugins.Sprite.Cnds.IsOutsideLayout,
 		C3.Plugins.System.Acts.GoToLayout,
-		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.TiledBg.Cnds.CompareWidth,
 		C3.Plugins.TiledBg.Acts.SetWidth,
 		C3.Plugins.TiledBg.Exps.X,
@@ -12199,7 +12199,8 @@ self.C3_JsPropNameTable = [
 	{TempTrans: 0},
 	{MaxSpeedInThisTransmission: 0},
 	{Boost: 0},
-	{MaxSpeedInThisTurn: 0},
+	{ReturnTurn: 0},
+	{MindTurn: 0},
 	{НастраиваемоеДвижение: 0},
 	{Player: 0},
 	{ОграничитьСценой: 0},
@@ -12384,7 +12385,7 @@ self.C3_ExpressionFuncs = [
 		() => 100000,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() / 625);
+			return () => (n0.ExpInstVar() / 1000);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12445,7 +12446,7 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
-			return () => (n0.ExpInstVar() / (10000 / n1.ExpInstVar()));
+			return () => (n0.ExpInstVar() * (10000 / n1.ExpInstVar()));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -12503,6 +12504,10 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 2000);
+		},
+		p => {
+			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 3000);
 		},
 		p => {
@@ -12512,6 +12517,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() / 6000);
 		},
 		() => 640,
 		p => {
