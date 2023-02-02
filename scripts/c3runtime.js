@@ -12632,13 +12632,11 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 2,
 		() => 5,
-		() => 100,
+		() => 3800,
 		p => {
 			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => (n0.ExpInstVar() / (6 - n1.ExpInstVar()));
+			return () => (n0.ExpInstVar() * 0.4);
 		},
-		() => 3800,
 		p => {
 			const n0 = p._GetNode(0);
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -12804,22 +12802,9 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 500,
 		() => "money",
-		() => "Bot",
-		() => 1000,
-		() => 380,
 		() => 1111,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const f1 = p._GetNode(1).GetBoundMethod();
-			return () => ((460 + (20 * Math.round(f0(1, 5)))) - (10 * Math.round(f1(1, 5))));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			return () => (((n0.ExpInstVar() / 1000) * (250 - n1.ExpInstVar())) * ((n2.ExpInstVar() - n3.ExpInstVar()) / 350));
-		},
+		() => "Bot",
+		() => 380,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(2, 5);
@@ -12828,34 +12813,36 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 2);
 		},
-		() => 250,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (1.5 * ((250 - n0.ExpInstVar()) / 250));
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			return () => (1.5 * ((n0.ExpInstVar() * ((n1.ExpInstVar() - n2.ExpInstVar()) / 600000)) / (n3.ExpInstVar() + 1)));
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (1.5 * ((250 - n0.ExpInstVar()) / 450));
+			return () => ((10000 - n0.ExpInstVar()) / 20);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpInstVar() + 0.5);
+			return () => ((10000 - n0.ExpInstVar()) / 130);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (1.5 * ((250 - n0.ExpInstVar()) / 650));
+			return () => ((10000 - n0.ExpInstVar()) / 300);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (1.5 * ((250 - n0.ExpInstVar()) / 850));
+			return () => ((10000 - n0.ExpInstVar()) / 450);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (1.5 * ((250 - n0.ExpInstVar()) / 1050));
+			return () => ((10000 - n0.ExpInstVar()) / 650);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (1.5 * ((250 - n0.ExpInstVar()) / 1650));
+			return () => ((10000 - n0.ExpInstVar()) / 1050);
 		},
 		() => "Scales",
 		() => 1857,
@@ -13033,6 +13020,13 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
 			return () => ((100 - v0.GetValue()) * v1.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			const v3 = p._GetNode(3).GetVar();
+			return () => ((((v0.GetValue() + v1.GetValue()) + v2.GetValue()) + v3.GetValue()) / 2);
 		},
 		() => 6.81,
 		() => 50,
