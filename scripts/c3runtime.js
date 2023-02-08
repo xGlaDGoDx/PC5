@@ -12723,7 +12723,7 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
-			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 1050)) * n2.ExpInstVar());
+			return () => (((n0.ExpObject() / 50) * ((10000 - n1.ExpInstVar()) / 2050)) * n2.ExpInstVar());
 		},
 		p => {
 			const n0 = p._GetNode(0);
