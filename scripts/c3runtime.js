@@ -12376,8 +12376,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.Sprite.Acts.SetVisible,
 		C3.Plugins.Sprite.Cnds.IsOutsideLayout,
-		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSet,
+		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Acts.CreateObject,
@@ -12808,12 +12808,13 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (1 + (0.3 * v0.GetValue()));
 		},
-		() => 500,
-		() => "money",
+		() => "hp",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
 		},
+		() => 500,
+		() => "money",
 		() => 1111,
 		() => "Bot",
 		() => 130,
@@ -12883,15 +12884,14 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 643,
 		p => {
-			const n0 = p._GetNode(0);
-			return () => (643 / n0.ExpInstVar());
+			const v0 = p._GetNode(0).GetVar();
+			return () => (643 / v0.GetValue());
 		},
 		() => "SpawnCars",
 		() => 560,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			return () => (v0.GetValue() + (5 * v1.GetValue()));
+			return () => (100 + (5 * v0.GetValue()));
 		},
 		() => "CarTwo",
 		p => {
@@ -12971,6 +12971,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("car2");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("hp");
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
