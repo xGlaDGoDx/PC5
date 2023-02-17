@@ -12408,7 +12408,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Text.Exps.Text,
-		C3.Plugins.System.Acts.ToggleBoolVar
+		C3.Plugins.System.Acts.ToggleBoolVar,
+		C3.Plugins.System.Acts.SetFunctionReturnValue
 	];
 };
 self.C3_JsPropNameTable = [
@@ -12447,8 +12448,9 @@ self.C3_JsPropNameTable = [
 	{Cards1: 0},
 	{Cards2: 0},
 	{WorkroomButton: 0},
+	{ID: 0},
 	{NextCarButton: 0},
-	{PastCarButton2: 0},
+	{PastCarButton: 0},
 	{Тач: 0},
 	{ОбУстройстве: 0},
 	{EngineWorkroom: 0},
@@ -12474,7 +12476,6 @@ self.C3_JsPropNameTable = [
 	{кнопкаПочинить: 0},
 	{монета: 0},
 	{надписьНазваниеАвтомобиля: 0},
-	{ID: 0},
 	{Money_text: 0},
 	{HP_Text: 0},
 	{кнопкаУлучшить: 0},
@@ -12494,6 +12495,16 @@ self.C3_JsPropNameTable = [
 	{MapBack: 0},
 	{гонкаНазвание: 0},
 	{кубокЗаблокированныйТурнир: 0},
+	{магазинФон: 0},
+	{магазин: 0},
+	{количествоМонет: 0},
+	{ячейкаПокупкиАвтоСиняяМашина: 0},
+	{ячейкаПокупкиАвтоЖелтаяМашина: 0},
+	{коллекцияАвто: 0},
+	{ячейкаМоиАвтоЖелтаяМашина: 0},
+	{ячейкаМоиАвтоСиняяМашина: 0},
+	{ячейкаМоиАвтоПустая: 0},
+	{CarInfo: 0},
 	{Cards: 0},
 	{PlayerCount: 0},
 	{coefficientForScale: 0},
@@ -12518,7 +12529,13 @@ self.C3_JsPropNameTable = [
 	{Money: 0},
 	{CheckMoneyGlobal: 0},
 	{Price: 0},
-	{HaveMoney: 0}
+	{HaveMoney: 0},
+	{ColIndex: 0},
+	{ShopIndex: 0},
+	{ShopCar: 0},
+	{ColCar: 0},
+	{ShopCountCar: 0},
+	{CollectionCountCar: 0}
 ];
 }
 
@@ -13132,7 +13149,28 @@ self.C3_ExpressionFuncs = [
 			return () => (((((((v0.GetValue()).toString() + " ") + (v1.GetValue()).toString()) + " ") + (v2.GetValue()).toString()) + " ") + (v3.GetValue()).toString());
 		},
 		() => "propcar2",
-		() => "propcar3"
+		() => "propcar3",
+		() => "50000",
+		() => "CarShop",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (960 + (475 * v0.GetValue()));
+		},
+		() => "CarCollection",
+		() => 880,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() - 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 475);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 475);
+		},
+		() => -1
 ];
 
 
