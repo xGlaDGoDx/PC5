@@ -9863,6 +9863,32 @@ C3.Behaviors.MoveTo.Acts.MoveAlongTimeline.call(this,timeline,trackId,mode)},Sto
 }
 
 {
+'use strict';{const C3=self.C3;C3.Behaviors.Orbit=class OrbitBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Behaviors.Orbit.Type=class OrbitType extends C3.SDKBehaviorTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}}
+{const C3=self.C3;const C3X=self.C3X;const IBehaviorInstance=self.IBehaviorInstance;const SPEED=0;const ACCELERATION=1;const MINOR_AXIS=2;const MAJOR_AXIS=3;const OFFSET_ANGLE=4;const MATCH_ROTATION=5;const ENABLE=6;C3.Behaviors.Orbit.Instance=class OrbitInstance extends C3.SDKBehaviorInstanceBase{constructor(inst,properties){super(inst);this._speed=0;this._acceleration=0;this._isEnabled=true;this._minorAxis=0;this._majorAxis=0;this._offsetAngle=0;this._matchRotation=false;this._targetX=0;this._targetY=
+0;this._targetObject=null;this._targetUid=-1;this._rotation=0;this._totalRotation=0;this._totalAbsoluteRotation=0;if(properties){this._speed=C3.toRadians(properties[SPEED]);this._acceleration=C3.toRadians(properties[ACCELERATION]);this._isEnabled=properties[ENABLE];this._minorAxis=properties[MINOR_AXIS];this._majorAxis=properties[MAJOR_AXIS];this._offsetAngle=C3.toRadians(properties[OFFSET_ANGLE]);this._matchRotation=properties[MATCH_ROTATION]}const rt=this._runtime.Dispatcher();this._disposables=
+new C3.CompositeDisposable(C3.Disposable.From(rt,"instancedestroy",e=>this._OnInstanceDestroyed(e.instance)),C3.Disposable.From(rt,"afterload",e=>this._OnAfterLoad()));this._SetEnabled(this._isEnabled);const wi=this._inst.GetWorldInfo();this._targetX=wi.GetX();this._targetY=wi.GetY();this._rotation=wi.GetAngle()}Release(){this._targetObject=null;super.Release()}_SetSpeed(s){this._speed=s}_GetSpeed(){return this._speed}_SetAcceleration(a){this._acceleration=a}_GetAcceleration(){return this._acceleration}_SetTargetXY(x,
+y){this._targetObject=null;this._targetX=x;this._targetY=y}_GetTargetX(){return this._targetX}_GetTargetY(){return this._targetY}_GetDistanceToTarget(){const x=this._minorAxis*Math.cos(this._rotation);const y=this._majorAxis*Math.sin(this._rotation);return Math.hypot(x,y)}_SetRotation(a){this._rotation=a}_GetRotation(){return this._rotation}_SetOffsetAngle(a){this._offsetAngle=a}_GetOffsetAngle(){return this._offsetAngle}_SetMinorAxis(a){this._minorAxis=a}_GetMinorAxis(){return this._minorAxis}_SetMajorAxis(a){this._majorAxis=
+a}_GetMajorAxis(){return this._majorAxis}_SetMatchRotation(m){this._matchRotation=!!m}_IsMatchRotation(){return this._matchRotation}_SetTotalRotation(r){this._totalRotation=r}_GetTotalRotation(){return this._totalRotation}_SetTotalAbsoluteRotation(r){this._totalAbsoluteRotation=r}_GetTotalAbsoluteRotation(){return this._totalAbsoluteRotation}_SetPinInstance(otherInst){if(otherInst&&!otherInst.GetWorldInfo())return;const isEnabled=this._isEnabled;if(isEnabled)this._SetEnabled(false);this._targetObject=
+otherInst;if(isEnabled)this._SetEnabled(true)}_SetEnabled(e){this._isEnabled=!!e;if(this._ShouldTickLate())if(this._isEnabled)this._StartTicking2();else this._StopTicking2();else if(this._isEnabled)this._StartTicking();else this._StopTicking()}_IsEnabled(){return this._isEnabled}SaveToJson(){return{"s":this._speed,"a":this._acceleration,"r":this._rotation,"e":this._isEnabled,"a1":this._majorAxis,"a2":this._minorAxis,"oa":this._offsetAngle,"mr":this._matchRotation,"tx":this._targetX,"ty":this._targetY,
+"tuid":this._targetObject?this._targetObject.GetUID():-1}}LoadFromJson(o){this._speed=o["s"];this._acceleration=o["a"];this._rotation=o["r"];this._majorAxis=o["a1"];this._minorAxis=o["a2"];this._offsetAngle=o["oa"];this._matchRotation=o["mr"];this._targetX=o["tx"];this._targetY=o["ty"];this._targetUid=o["tuid"];this._SetEnabled(o["e"])}_OnAfterLoad(){if(this._targetUid===-1)this._targetObject=null;else{this._targetObject=this._runtime.GetInstanceByUID(this._targetUid);this._targetUid=-1}}_OnInstanceDestroyed(inst){if(this._targetObject===
+inst)this._targetObject=null}_Initialise(){if(!this._shouldInitialise)return;const wi=this._inst.GetWorldInfo();this._targetX=wi.GetX();this._targetY=wi.GetY();this._rotation=wi.GetAngle();this._shouldInitialise=false}_UpdateTarget(){if(!this._targetObject)return;const wi=this._targetObject.GetWorldInfo();this._targetX=wi.GetX();this._targetY=wi.GetY()}_ShouldTickLate(){return!!this._targetObject}Tick(){this._TickInternal()}Tick2(){this._TickInternal()}_TickInternal(){if(!this._isEnabled)return;const dt=
+this._runtime.GetDt(this._inst);if(dt===0)return;if(this._acceleration!==0)this._speed+=this._acceleration*dt;const wi=this._inst.GetWorldInfo();const delta=this._speed*dt;this._rotation=C3.clampAngle(this._rotation+delta);this._totalRotation+=delta;this._totalAbsoluteRotation+=Math.abs(delta);const x=this._minorAxis*Math.cos(this._rotation);const y=this._majorAxis*Math.sin(this._rotation);const cos=Math.cos(this._offsetAngle);const sin=Math.sin(this._offsetAngle);this._UpdateTarget();wi.SetXY(this._targetX+
+(x*cos-y*sin),this._targetY+(x*sin+y*cos));if(this._matchRotation)wi.SetAngle(this._rotation+this._offsetAngle+.5*Math.PI);wi.SetBboxChanged()}GetPropertyValueByIndex(index){switch(index){case SPEED:return C3.toDegrees(this._GetSpeed());case ACCELERATION:return C3.toDegrees(this._GetAcceleration());case ENABLE:return this._IsEnabled();case MINOR_AXIS:return this._GetMinorAxis();case MAJOR_AXIS:return this._GetMajorAxis();case OFFSET_ANGLE:return C3.toDegrees(this._GetOffsetAngle());case MATCH_ROTATION:return this._IsMatchRotation()}}SetPropertyValueByIndex(index,
+value){switch(index){case SPEED:this._SetSpeed(C3.toRadians(value));break;case ACCELERATION:this._SetAcceleration(C3.toRadians(value));break;case ENABLE:this._SetEnabled(value);break;case MINOR_AXIS:this._SetMinorAxis(value);break;case MAJOR_AXIS:this._SetMajorAxis(value);break;case OFFSET_ANGLE:this._SetOffsetAngle(C3.toRadians(value));break;case MATCH_ROTATION:this._SetMatchRotation(value);break}}GetDebuggerProperties(){const prefix="behaviors.orbit";return[{title:"$"+this.GetBehaviorType().GetName(),
+properties:[{name:prefix+".debugger.rotation",value:C3.toDegrees(this._GetRotation())},{name:prefix+".debugger.total-rotation",value:C3.toDegrees(this._GetTotalRotation())},{name:prefix+".debugger.total-absolute-rotation",value:C3.toDegrees(this._GetTotalAbsoluteRotation())},{name:prefix+".properties.speed.name",value:C3.toDegrees(this._GetSpeed()),onedit:v=>this._SetSpeed(C3.toRadians(v))},{name:prefix+".properties.acceleration.name",value:C3.toDegrees(this._GetAcceleration()),onedit:v=>this._SetAcceleration(C3.toRadians(v))},
+{name:prefix+".properties.primary-axis.name",value:this._GetMinorAxis(),onedit:v=>this._SetMinorAxis(v)},{name:prefix+".properties.secondary-axis.name",value:this._GetMajorAxis(),onedit:v=>this._SetMajorAxis(v)},{name:prefix+".properties.offset-angle.name",value:C3.toDegrees(this._GetOffsetAngle()),onedit:v=>this._SetOffsetAngle(C3.toRadians(v))},{name:prefix+".properties.match-rotation.name",value:this._IsMatchRotation(),onedit:v=>this._SetMatchRotation(!!v)},{name:prefix+".properties.enabled.name",
+value:this._IsEnabled(),onedit:v=>this._SetEnabled(v)}]}]}GetScriptInterfaceClass(){return self.IOrbitBehaviorInstance}};const map=new WeakMap;self.IOrbitBehaviorInstance=class IOrbitBehaviorInstance extends IBehaviorInstance{constructor(){super();map.set(this,IBehaviorInstance._GetInitInst().GetSdkInstance())}setTargetPosition(x,y){C3X.RequireFiniteNumber(x);C3X.RequireFiniteNumber(y);map.get(this)._SetTargetXY(x,y)}getTargetPosition(){const inst=map.get(this);return[inst._GetTargetX(),inst._GetTargetY()]}pin(iinst){const inst=
+map.get(this);const otherInst=iinst?inst.GetRuntime()._UnwrapIWorldInstance(iinst):null;inst._SetPinInstance(otherInst)}set speed(s){C3X.RequireFiniteNumber(s);map.get(this)._SetSpeed(s)}get speed(){return map.get(this)._GetSpeed()}set acceleration(a){C3X.RequireFiniteNumber(a);map.get(this)._SetAcceleration(a)}get acceleration(){return map.get(this)._GetAcceleration()}set rotation(a){C3X.RequireFiniteNumber(a);map.get(this)._SetRotation(a)}get rotation(){return map.get(this)._GetRotation()}set offsetAngle(a){C3X.RequireFiniteNumber(a);
+map.get(this)._SetOffsetAngle(a)}get offsetAngle(){return map.get(this)._GetOffsetAngle()}set primaryRadius(r){C3X.RequireFiniteNumber(r);map.get(this)._SetMinorAxis(r)}get primaryRadius(){return map.get(this)._GetMinorAxis()}set secondaryRadius(r){C3X.RequireFiniteNumber(r);map.get(this)._SetMajorAxis(r)}get secondaryRadius(){return map.get(this)._GetMajorAxis()}set isMatchRotation(r){map.get(this)._SetMatchRotation(!!r)}get isMatchRotation(){return map.get(this)._IsMatchRotation()}set totalRotation(r){C3X.RequireFiniteNumber(r);
+map.get(this)._SetTotalRotation(r)}get totalRotation(){return map.get(this)._GetTotalRotation()}set totalAbsoluteRotation(r){C3X.RequireFiniteNumber(r);map.get(this)._SetTotalAbsoluteRotation(r)}get totalAbsoluteRotation(){return map.get(this)._GetTotalAbsoluteRotation()}getDistanceToTarget(){return map.get(this)._GetDistanceToTarget()}set isEnabled(e){map.get(this)._SetEnabled(e)}get isEnabled(){return map.get(this)._IsEnabled()}}}{const C3=self.C3;C3.Behaviors.Orbit.Cnds={IsEnabled(){return this._IsEnabled()}}}
+{const C3=self.C3;C3.Behaviors.Orbit.Acts={SetSpeed(s){this._SetSpeed(C3.toRadians(s))},SetAcceleration(a){this._SetAcceleration(C3.toRadians(a))},SetTarget(x,y){this._SetTargetXY(x,y)},SetRotation(a){this._SetRotation(C3.toRadians(a))},SetOffsetAngle(a){this._SetOffsetAngle(C3.toRadians(a))},SetRadius(primary,secondary){this._SetMinorAxis(primary);this._SetMajorAxis(secondary)},SetMatchRotation(b){this._SetMatchRotation(!!b)},Pin(objectClass){if(!objectClass)return;const otherInst=objectClass.GetFirstPicked(this._inst);
+if(!otherInst)return;this._SetPinInstance(otherInst)},Unpin(){this._SetPinInstance(null)},SetEnabled(e){this._SetEnabled(e)},ResetTotalRotation(){this._SetTotalRotation(0);this._SetTotalAbsoluteRotation(0)}}}
+{const C3=self.C3;C3.Behaviors.Orbit.Exps={Speed(){return C3.toDegrees(this._GetSpeed())},Acceleration(){return C3.toDegrees(this._GetAcceleration())},PrimaryRadius(){return this._GetMinorAxis()},SecondaryRadius(){return this._GetMajorAxis()},OffsetAngle(){return C3.toDegrees(this._GetOffsetAngle())},Rotation(){return C3.toDegrees(this._GetRotation())},TotalRotation(){return C3.toDegrees(this._GetTotalRotation())},TotalAbsoluteRotation(){return C3.toDegrees(this._GetTotalAbsoluteRotation())},TargetX(){return this._GetTargetX()},
+TargetY(){return this._GetTargetY()},DistanceToTarget(){return this._GetDistanceToTarget()}}};
+
+}
+
+{
 const C3 = self.C3;
 self.C3_GetObjectRefTable = function () {
 	return [
@@ -9884,6 +9910,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.AJAX,
 		C3.Plugins.Arr,
 		C3.Plugins.Browser,
+		C3.Behaviors.Orbit,
 		C3.Plugins.System.Cnds.IsGroupActive,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Behaviors.Pin.Acts.PinByProperties,
@@ -9928,10 +9955,9 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.IsOutsideLayout,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSet,
 		C3.Plugins.System.Acts.AddVar,
-		C3.Plugins.Eponesh_GameScore.Acts.PlayerAdd,
-		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Acts.CreateObject,
+		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.TiledBg.Cnds.CompareWidth,
 		C3.Plugins.TiledBg.Acts.SetWidth,
 		C3.Plugins.TiledBg.Exps.X,
@@ -9940,8 +9966,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Photon.Exps.ActorCount,
 		C3.Plugins.Sprite.Acts.MoveToLayer,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
-		C3.Plugins.Sprite.Acts.SetAnim,
-		C3.Plugins.Browser.Acts.ConsoleLog,
 		C3.Plugins.System.Cnds.Compare,
 		C3.Plugins.System.Acts.SetFunctionReturnValue,
 		C3.Plugins.AJAX.Acts.Post,
@@ -9971,11 +9995,27 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.System.Acts.ToggleBoolVar,
+		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.Eponesh_GameScore.Cnds.OnPaymentsPurchase,
 		C3.Plugins.Eponesh_GameScore.Acts.PaymentsPurchase,
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
-		C3.Plugins.System.Cnds.PickByComparison
+		C3.Plugins.System.Cnds.PickByComparison,
+		C3.Plugins.Arr.Exps.Width,
+		C3.Plugins.Arr.Acts.Push,
+		C3.Plugins.Browser.Acts.ConsoleLog,
+		C3.Plugins.System.Cnds.ForEach,
+		C3.Plugins.System.Acts.SetBoolVar,
+		C3.Plugins.Sprite.Acts.LoadURL,
+		C3.Plugins.Arr.Exps.Back,
+		C3.Plugins.Arr.Acts.Pop,
+		C3.Plugins.Sprite.Exps.Width,
+		C3.Plugins.Sprite.Exps.Height,
+		C3.Behaviors.MoveTo.Acts.SetMaxSpeed,
+		C3.Behaviors.MoveTo.Acts.SetAcceleration,
+		C3.Behaviors.MoveTo.Acts.SetDeceleration,
+		C3.Plugins.Eponesh_GameScore.Acts.PlayerAdd,
+		C3.Plugins.Arr.Acts.SetSize
 	];
 };
 self.C3_JsPropNameTable = [
@@ -10086,8 +10126,11 @@ self.C3_JsPropNameTable = [
 	{КУПИТЬ: 0},
 	{кнопкаКупить: 0},
 	{рамкаДляФото: 0},
-	{Sprite: 0},
+	{isWin: 0},
+	{loseRound: 0},
+	{Avatar: 0},
 	{турнирнаяТаблицаФон: 0},
+	{winRound: 0},
 	{серебро: 0},
 	{бронза: 0},
 	{AJAX: 0},
@@ -10101,7 +10144,25 @@ self.C3_JsPropNameTable = [
 	{ТекстРейтинг: 0},
 	{Место: 0},
 	{Browser: 0},
+	{localePlayers: 0},
+	{Avatar2: 0},
+	{Avatar3: 0},
+	{Avatar4: 0},
+	{Avatar5: 0},
+	{Avatar6: 0},
+	{safeInfoPlayers: 0},
+	{Avatar7: 0},
+	{Avatar8: 0},
+	{winRoundArray: 0},
+	{winRoundArray2: 0},
+	{затемнениеФона: 0},
+	{окончаниеЗаезда: 0},
+	{Orbit: 0},
+	{свечение: 0},
+	{разделительРамок: 0},
+	{победаВТурнире: 0},
 	{Cards: 0},
+	{Avatars: 0},
 	{PlayerCount: 0},
 	{coefficientForScale: 0},
 	{MaxHPPlayer: 0},
@@ -10133,7 +10194,13 @@ self.C3_JsPropNameTable = [
 	{ShopCar: 0},
 	{ColCar: 0},
 	{ShopCountCar: 0},
-	{CollectionCountCar: 0}
+	{CollectionCountCar: 0},
+	{player: 0},
+	{load: 0},
+	{gameRound: 0},
+	{playerAvatarID: 0},
+	{findPlayer: 0},
+	{findPlayerPlace: 0}
 ];
 }
 
@@ -10435,9 +10502,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "hp2",
 		() => "hp3",
-		() => 500,
-		() => "money",
-		() => "map",
 		() => 1111,
 		() => "Bot",
 		() => 130,
@@ -10447,8 +10511,13 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
 			const v2 = p._GetNode(2).GetVar();
-			return () => Math.round(f0((v1.GetValue() - 1), ((v2.GetValue() + 1) + 1)));
+			return () => Math.round(f0((v1.GetValue() - 1), (v2.GetValue() + 1)));
 		},
+		() => 300,
+		() => 400,
+		() => "CarTwo",
+		() => 500,
+		() => "CarThree",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(2, 5);
@@ -10553,7 +10622,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "SpawnCars",
 		() => 560,
-		() => 300,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (100 + (5 * v0.GetValue()));
@@ -10562,8 +10630,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("hp1");
 		},
-		() => 400,
-		() => "CarTwo",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (110 + (10 * v0.GetValue()));
@@ -10572,7 +10638,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("hp2");
 		},
-		() => "CarThree",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (115 + (15 * v0.GetValue()));
@@ -10589,7 +10654,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() + 250);
 		},
-		() => "zxc",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() - 1000);
@@ -10598,7 +10662,6 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() * 0.8);
 		},
-		() => "zxc123",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() - 500);
@@ -10607,12 +10670,10 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() * 0.9);
 		},
-		() => "zxc12",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() * 0.95);
 		},
-		() => "zxc1",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() * 1.05);
@@ -10917,6 +10978,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "propcar2",
 		() => "propcar3",
+		() => "money",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -10975,7 +11037,130 @@ self.C3_ExpressionFuncs = [
 		() => 4890,
 		() => -1137,
 		() => -769,
-		() => -294
+		() => -294,
+		() => 8,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => f0(n1.ExpObject(0), 0, "|");
+		},
+		() => 7,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => Math.round(f0((v1.GetValue() - 10), (v2.GetValue() + 10)));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue());
+		},
+		() => " |  |  ",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			return () => f0(n1.ExpObject(v2.GetValue()), 2, " | ");
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => n0.ExpObject(f1());
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(0, 7));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => f0(n1.ExpObject(0), 3, " | ");
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() % 2);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => Math.round((v0.GetValue() / 2));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => Math.round(((v0.GetValue() - 1) / 2));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 25);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 100);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(0, 1));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(2, 3));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(4, 5));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(6, 7));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (750 + (420 * v0.GetValue()));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (450 + (200 * v0.GetValue()));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (1 + v0.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() / 1.8);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => Math.abs(Math.round(f0((((-3) + (v1.GetValue() * 2)) + 1), ((-2) + (v2.GetValue() * 2)))));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (1170 - (420 * v0.GetValue()));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (650 - (200 * v0.GetValue()));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (2 - v0.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() / 2.1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() / 1.7);
+		},
+		() => 200,
+		() => 96000000000,
+		() => 0.5,
+		() => 2000,
+		() => 1.5,
+		() => "map"
 ];
 
 
