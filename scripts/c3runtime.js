@@ -10069,7 +10069,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetFunctionReturnValue,
 		C3.Plugins.Sprite.Acts.SetAngle,
 		C3.Plugins.System.Acts.CreateObjectByName,
-		C3.Plugins.Browser.Acts.ConsoleLog,
 		C3.Plugins.Sprite.Cnds.OnCreated,
 		C3.Plugins.Sprite.Acts.SetOpacity,
 		C3.Plugins.System.Exps.viewportmidx,
@@ -10090,9 +10089,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.AJAX.Acts.Post,
 		C3.Plugins.System.Exps.urlencode,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerID,
+		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.AJAX.Cnds.OnComplete,
 		C3.Plugins.Arr.Acts.SplitString,
 		C3.Plugins.AJAX.Exps.LastData,
+		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Text.Exps.Text,
 		C3.Plugins.System.Exps.int,
@@ -10114,7 +10115,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.Sprite.Acts.MoveToBottom,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
-		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.System.Acts.ToggleBoolVar,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.Text.Acts.SetPos,
@@ -10128,7 +10128,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Exps.Width,
 		C3.Plugins.Arr.Acts.Push,
 		C3.Plugins.System.Cnds.ForEach,
-		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.Arr.Exps.Back,
 		C3.Plugins.Arr.Acts.Pop,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerAdd,
@@ -10344,6 +10343,7 @@ self.C3_JsPropNameTable = [
 	{Car3_Global: 0},
 	{CarMovePosition: 0},
 	{CarPropText: 0},
+	{isLoad: 0},
 	{CountCar: 0},
 	{plInfo: 0},
 	{rightWheelX: 0},
@@ -11129,12 +11129,11 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => and((and("name=", f0("name")) + "&ID="), f1());
 		},
+		() => 0.1,
 		() => "<br>",
-		() => "zxc",
 		() => 960,
 		() => 3000,
 		() => -3000,
-		() => 0.1,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => ("&" + n0.ExpObject());
@@ -11662,13 +11661,6 @@ self.C3_ExpressionFuncs = [
 		() => "propcar2",
 		() => "propcar3",
 		() => "money",
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			const v2 = p._GetNode(2).GetVar();
-			const v3 = p._GetNode(3).GetVar();
-			return () => and((and((and(and(v0.GetValue(), " "), v1.GetValue()) + " "), v2.GetValue()) + " "), v3.GetValue());
-		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 200);
