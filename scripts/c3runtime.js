@@ -10108,6 +10108,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.AJAX.Acts.Post,
 		C3.Plugins.System.Exps.urlencode,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerID,
+		C3.Plugins.Browser.Acts.ConsoleLog,
 		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.AJAX.Cnds.OnComplete,
 		C3.Plugins.Arr.Acts.SplitString,
@@ -10133,11 +10134,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.LayerNumber,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.Sprite.Acts.MoveToBottom,
-		C3.Plugins.Browser.Acts.ConsoleLog,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Plugins.System.Acts.ToggleBoolVar,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
-		C3.Plugins.Text.Acts.SetPos,
+		C3.Plugins.Spritefont2.Acts.SetText,
 		C3.Plugins.Eponesh_GameScore.Cnds.OnPaymentsPurchase,
 		C3.Plugins.Eponesh_GameScore.Acts.PaymentsPurchase,
 		C3.Behaviors.custom.Acts.SetEnabled,
@@ -10335,7 +10335,7 @@ self.C3_JsPropNameTable = [
 	{Stars: 0},
 	{TurboBar: 0},
 	{SpriteFont2: 0},
-	{MapNumber: 0},
+	{FontNumbers: 0},
 	{Cards: 0},
 	{Avatars: 0},
 	{CarElements: 0},
@@ -11150,6 +11150,7 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => and((and("name=", f0("name")) + "&ID="), f1());
 		},
+		() => "Version 6",
 		() => 0.1,
 		() => "<br>",
 		() => 960,
@@ -11824,7 +11825,7 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
-			return () => ((f0() + 1) + (6 * v1.GetValue()));
+			return () => (f0() + (v1.GetValue() * 6));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
