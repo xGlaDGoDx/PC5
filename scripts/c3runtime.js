@@ -10364,11 +10364,11 @@ self.C3_JsPropNameTable = [
 	{CarMovePosition: 0},
 	{CarPropText: 0},
 	{isLoad: 0},
+	{cardIsMoved: 0},
 	{CarAnimation: 0},
 	{id: 0},
 	{x: 0},
 	{y: 0},
-	{cardIsMoved: 0},
 	{CountCar: 0},
 	{plInfo: 0},
 	{rightWheelX: 0},
@@ -11240,10 +11240,6 @@ self.C3_ExpressionFuncs = [
 		() => "Garage",
 		() => "SpawnCards",
 		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 120);
-		},
-		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("money");
 		},
@@ -11266,6 +11262,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (960 + (400 * v0.GetValue()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 120);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -11482,7 +11482,9 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 400);
 		},
-		() => "Cards were moded",
+		() => "Blur",
+		() => "ButtonAnimation",
+		() => "IndicatorScript",
 		() => "Слой 2",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -11505,9 +11507,6 @@ self.C3_ExpressionFuncs = [
 			const v3 = p._GetNode(3).GetVar();
 			return () => f0(f1(f2(and("propcar", v3.GetValue())), 1, " "));
 		},
-		() => "Blur",
-		() => "ButtonAnimation",
-		() => "IndicatorScript",
 		() => 59,
 		() => 44,
 		() => 295,
