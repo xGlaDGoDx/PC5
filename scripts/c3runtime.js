@@ -10117,7 +10117,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Text.Exps.Text,
 		C3.Plugins.Text.Acts.SetText,
-		C3.Plugins.Text.Acts.SetX,
 		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.TiledBg.Cnds.CompareInstanceVar,
@@ -10131,6 +10130,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Exps.At,
 		C3.Plugins.System.Exps.len,
 		C3.Plugins.System.Exps.loopindex,
+		C3.Plugins.Text.Acts.SetX,
 		C3.Plugins.Sprite.Exps.LayerNumber,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.Sprite.Acts.MoveToBottom,
@@ -11155,7 +11155,7 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => and((and("name=", f0("name")) + "&ID="), f1());
 		},
-		() => "Version 7.21",
+		() => "Version 7.22",
 		() => "<br>",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
