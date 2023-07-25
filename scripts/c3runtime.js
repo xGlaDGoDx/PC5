@@ -10109,17 +10109,17 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.urlencode,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerID,
 		C3.Plugins.Browser.Acts.ConsoleLog,
-		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.AJAX.Cnds.OnComplete,
 		C3.Plugins.Arr.Acts.SplitString,
 		C3.Plugins.AJAX.Exps.LastData,
-		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.System.Exps.int,
 		C3.Plugins.System.Exps.tokenat,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Text.Exps.Text,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.Text.Acts.SetX,
+		C3.Plugins.System.Acts.SetBoolVar,
+		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.TiledBg.Cnds.CompareInstanceVar,
 		C3.Plugins.TiledBg.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.SetY,
@@ -11157,10 +11157,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "Version 7.21",
 		() => "<br>",
-		() => 960,
-		() => 3000,
-		() => -3000,
-		() => 0.1,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -11233,6 +11229,10 @@ self.C3_ExpressionFuncs = [
 			const f2 = p._GetNode(2).GetBoundMethod();
 			return () => f0(f1(f2("propcar3"), 3, " "));
 		},
+		() => 0.1,
+		() => 960,
+		() => 3000,
+		() => -3000,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => ("&" + n0.ExpObject());
