@@ -10114,11 +10114,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.AJAX.Exps.LastData,
 		C3.Plugins.System.Exps.int,
 		C3.Plugins.System.Exps.tokenat,
+		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Text.Exps.Text,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.System.Acts.SetBoolVar,
-		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.TiledBg.Cnds.CompareInstanceVar,
 		C3.Plugins.TiledBg.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.SetY,
@@ -10297,6 +10297,7 @@ self.C3_JsPropNameTable = [
 	{свечение: 0},
 	{разделительРамок: 0},
 	{победаВТурнире: 0},
+	{Side: 0},
 	{колесо: 0},
 	{выхлопнаяТруба: 0},
 	{подвескаИСпойлер: 0},
@@ -11155,7 +11156,7 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => and((and("name=", f0("name")) + "&ID="), f1());
 		},
-		() => "Version 7.22",
+		() => "Version 8",
 		() => "<br>",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -11634,15 +11635,22 @@ self.C3_ExpressionFuncs = [
 			const v3 = p._GetNode(3).GetVar();
 			return () => (f0(f1(f2(and("propcar", v3.GetValue())), 2, " ")) - 1);
 		},
+		() => "left",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => and((and("here ", v0.GetValue()) + " "), v1.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => and(and(n0.ExpObject(), " "), n1.ExpObject());
+		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("Car", v0.GetValue());
 		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			return () => and(and(v0.GetValue(), " "), v1.GetValue());
-		},
+		() => "right",
 		() => 900,
 		() => 360,
 		p => {
