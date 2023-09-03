@@ -10156,7 +10156,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.ToggleBoolVar,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.Spritefont2.Acts.SetText,
-		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.Eponesh_GameScore.Cnds.OnPaymentsPurchase,
 		C3.Plugins.Eponesh_GameScore.Acts.PaymentsPurchase,
 		C3.Behaviors.custom.Acts.SetEnabled,
@@ -10176,7 +10175,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Fade.Acts.SetFadeInTime,
 		C3.Behaviors.Fade.Acts.StartFade,
 		C3.Plugins.System.Acts.GoToLayoutByName,
-		C3.Behaviors.Fade.Acts.SetFadeOutTime
+		C3.Behaviors.Fade.Acts.SetFadeOutTime,
+		C3.Plugins.System.Exps.layoutname
 	];
 };
 self.C3_JsPropNameTable = [
@@ -10367,6 +10367,10 @@ self.C3_JsPropNameTable = [
 	{LoaderScale: 0},
 	{Fade: 0},
 	{Transition: 0},
+	{mainFont: 0},
+	{ячейкаКупитьСлот: 0},
+	{turboAnimation: 0},
+	{smokeAnimation: 0},
 	{Cards: 0},
 	{Avatars: 0},
 	{CarElements: 0},
@@ -10394,7 +10398,9 @@ self.C3_JsPropNameTable = [
 	{Car3_Global: 0},
 	{CarMovePosition: 0},
 	{CarPropText: 0},
+	{speedTransitionAnimation: 0},
 	{isLoad: 0},
+	{freeSlots: 0},
 	{cardIsMoved: 0},
 	{CarAnimation: 0},
 	{id: 0},
@@ -10422,6 +10428,12 @@ self.C3_JsPropNameTable = [
 	{ShopIndex: 0},
 	{ShopCar: 0},
 	{ColCar: 0},
+	{countSlotsForSpawn: 0},
+	{purchasedCars: 0},
+	{countSpawnSlots: 0},
+	{countPurchasedCars: 0},
+	{countSoldCars: 0},
+	{countAllCars: 0},
 	{CarProp: 0},
 	{ShopCountCar: 0},
 	{CollectionCountCar: 0},
@@ -10746,6 +10758,14 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() / 150);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 120);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 80);
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -11264,11 +11284,11 @@ self.C3_ExpressionFuncs = [
 			const f2 = p._GetNode(2).GetBoundMethod();
 			return () => f0(f1(f2("propcar3"), 3, " "));
 		},
-		() => 0.1,
 		() => "Map",
 		() => 960,
 		() => 3000,
 		() => -3000,
+		() => 0.1,
 		() => "Workroom",
 		p => {
 			const n0 = p._GetNode(0);
@@ -11277,6 +11297,11 @@ self.C3_ExpressionFuncs = [
 		() => "Shop",
 		() => "Bank",
 		() => "SpawnCards",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => f0(f1("freeslots"));
+		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("money");
@@ -11799,10 +11824,6 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 80);
-		},
-		p => {
-			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 265);
 		},
 		p => {
@@ -11935,7 +11956,21 @@ self.C3_ExpressionFuncs = [
 		},
 		() => -5000,
 		() => "CarCollection",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => (960 + (400 * (v0.GetValue() + f1())));
+		},
 		() => 880,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => (v0.GetValue() + v1.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() + 1);
+		},
 		() => "Info",
 		p => {
 			const n0 = p._GetNode(0);
@@ -12044,10 +12079,6 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() + 1);
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
 			return () => Math.round((v0.GetValue() / 2));
 		},
 		p => {
@@ -12102,6 +12133,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => ("Go to " + v0.GetValue());
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => ("Start layout " + f0());
 		}
 ];
 
