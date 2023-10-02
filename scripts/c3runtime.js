@@ -10243,16 +10243,16 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
 		C3.Plugins.Sprite.Cnds.OnCreated,
 		C3.Behaviors.Orbit.Acts.SetEnabled,
-		C3.Plugins.AJAX.Acts.RequestFile,
-		C3.Plugins.AJAX.Cnds.OnComplete,
-		C3.Plugins.Json.Acts.Parse,
-		C3.Plugins.AJAX.Exps.LastData,
-		C3.Plugins.Json.Cnds.OnCreated,
-		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.Json.Exps.Get,
+		C3.Plugins.Browser.Acts.ConsoleLog,
+		C3.Plugins.Json.Cnds.HasKey,
+		C3.Plugins.Sprite.Acts.SetAngle,
 		C3.Plugins.System.Cnds.Compare,
 		C3.Plugins.System.Acts.SetFunctionReturnValue,
 		C3.Plugins.Json.Cnds.IsBooleanSet,
+		C3.Plugins.System.Exps.int,
+		C3.Plugins.System.Exps.right,
+		C3.Plugins.Sprite.Exps.AnimationName,
 		C3.Plugins.System.Acts.CreateObjectByName,
 		C3.Plugins.Sprite.Acts.SetOpacity,
 		C3.Plugins.System.Exps.viewportmidx,
@@ -10272,14 +10272,15 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.AJAX.Acts.Post,
 		C3.Plugins.System.Exps.urlencode,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerID,
-		C3.Plugins.Browser.Acts.ConsoleLog,
+		C3.Plugins.AJAX.Cnds.OnComplete,
 		C3.Plugins.Arr.Acts.SplitString,
-		C3.Plugins.System.Exps.int,
+		C3.Plugins.AJAX.Exps.LastData,
 		C3.Plugins.System.Exps.tokenat,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Text.Exps.Text,
 		C3.Plugins.Text.Acts.SetText,
+		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.TiledBg.Cnds.CompareInstanceVar,
 		C3.Plugins.TiledBg.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.SetY,
@@ -10314,6 +10315,9 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Acts.Pop,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerAdd,
 		C3.Plugins.Arr.Acts.SetSize,
+		C3.Plugins.AJAX.Acts.RequestFile,
+		C3.Plugins.Json.Acts.Parse,
+		C3.Plugins.Json.Cnds.OnCreated,
 		C3.Plugins.System.Exps.loadingprogress,
 		C3.Plugins.System.Cnds.OnLoadFinished,
 		C3.Behaviors.Fade.Acts.SetFadeInTime,
@@ -10513,6 +10517,7 @@ self.C3_JsPropNameTable = [
 	{Transition: 0},
 	{mainFont: 0},
 	{ячейкаКупитьСлот: 0},
+	{id: 0},
 	{turboAnimation: 0},
 	{smokeAnimation: 0},
 	{JSON: 0},
@@ -10533,10 +10538,12 @@ self.C3_JsPropNameTable = [
 	{TurboEnergy: 0},
 	{param: 0},
 	{CircleFrame: 0},
+	{TypeCar: 0},
 	{xPlayer: 0},
 	{xBot: 0},
 	{Body: 0},
 	{Engine: 0},
+	{idAnimation: 0},
 	{CountCars: 0},
 	{Car1_Global: 0},
 	{Car2_Global: 0},
@@ -10548,7 +10555,7 @@ self.C3_JsPropNameTable = [
 	{freeSlots: 0},
 	{cardIsMoved: 0},
 	{CarAnimation: 0},
-	{id: 0},
+	{CarElementsAnimation: 0},
 	{x: 0},
 	{y: 0},
 	{CountCar: 0},
@@ -10918,11 +10925,11 @@ self.C3_ExpressionFuncs = [
 			return () => (1 + (0.3 * v0.GetValue()));
 		},
 		() => 0.5,
-		() => "hp1",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
 		},
+		() => "hp1",
 		() => "hp2",
 		() => "hp3",
 		() => "Win",
@@ -10957,7 +10964,7 @@ self.C3_ExpressionFuncs = [
 			return () => (n0.ExpObject() + 140);
 		},
 		() => 400,
-		() => "CarTwo",
+		() => "car2",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 93);
@@ -10968,7 +10975,7 @@ self.C3_ExpressionFuncs = [
 			return () => (n0.ExpObject() + 80);
 		},
 		() => 500,
-		() => "CarThree",
+		() => "car3",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 91);
@@ -11125,7 +11132,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("hp3");
 		},
-		() => "carElements",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -11138,6 +11144,37 @@ self.C3_ExpressionFuncs = [
 			const v2 = p._GetNode(2).GetVar();
 			return () => add(n0.ExpObject(), n1.ExpObject((and("car", v2.GetValue()) + ".smoke.offset.y")));
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => add(n0.ExpObject(), n1.ExpObject((and((and("car", v2.GetValue()) + ".turbo.stage"), n3.ExpObject()) + ".animation.x")));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => add(n0.ExpObject(), n1.ExpObject((and((and("car", v2.GetValue()) + ".turbo.stage"), n3.ExpObject()) + ".animation.y")));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			return () => (and((and("car", v0.GetValue()) + ".turbo.stage"), n1.ExpObject()) + ".animation.x");
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			return () => (and((and("car", v0.GetValue()) + ".turbo.stage"), n1.ExpObject()) + ".animation.rotation");
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			return () => n0.ExpObject((and((and("car", v1.GetValue()) + ".turbo.stage"), n2.ExpObject()) + ".animation.rotation"));
+		},
+		() => -5000,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() - 250);
@@ -11194,11 +11231,6 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => (and((and("car", v0.GetValue()) + ".body.stage"), v1.GetValue()) + ".top");
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
 			return () => (and((and("car", v0.GetValue()) + ".engine.stage"), v1.GetValue()) + ".top");
 		},
 		p => {
@@ -11244,8 +11276,16 @@ self.C3_ExpressionFuncs = [
 			return () => add(n0.ExpObject(), n1.ExpObject((and((and("car", v2.GetValue()) + ".engine.stage"), (v3.GetValue() - 1)) + ".offset.y")));
 		},
 		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => and("Car", v0.GetValue());
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const n2 = p._GetNode(2);
+			return () => and("Car", f0(f1(n2.ExpObject(), 1)));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const n2 = p._GetNode(2);
+			return () => f0(f1(n2.ExpObject(), 1));
 		},
 		() => "endGameAnimation",
 		p => {
@@ -11298,6 +11338,7 @@ self.C3_ExpressionFuncs = [
 			const n2 = p._GetNode(2);
 			return () => ((f0("Layer 4") + (n1.ExpObject() / 2)) + (n2.ExpObject() / 3));
 		},
+		() => "Version 10.0",
 		() => "Рейтинг",
 		() => "get",
 		() => "https://www.tablequiz.ru/main_table.php",
@@ -11315,7 +11356,6 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => and((and("name=", f0("name")) + "&ID="), f1());
 		},
-		() => "Version 8",
 		() => "<br>",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -11657,7 +11697,14 @@ self.C3_ExpressionFuncs = [
 			const f14 = p._GetNode(14).GetBoundMethod();
 			return () => and(((f0(f1(n2.ExpObject(), 0, " ")) - ((f3(f4(n5.ExpObject(), 0, " ")) * 0.1) * (f6(f7(f8("propcar3"), 1, " ")) - 1))) - ((f9(f10(n11.ExpObject(), 0, " ")) * 0.1) * (f12(f13(f14("propcar3"), 2, " ")) - 1))), " сек");
 		},
-		() => "CarOne",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and("car", v0.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and("Car", v0.GetValue());
+		},
 		() => "Слой 2",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -11800,6 +11847,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 1010,
 		() => 910,
+		() => "car1",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -12075,8 +12123,6 @@ self.C3_ExpressionFuncs = [
 		() => "50000",
 		() => "150000",
 		() => "Купить",
-		() => "car2",
-		() => "car3",
 		() => "Продать",
 		() => "1 1 1 0",
 		() => "CarShop",
@@ -12084,7 +12130,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (960 + (475 * v0.GetValue()));
 		},
-		() => -5000,
 		() => "CarCollection",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -12260,6 +12305,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 1170,
 		() => 650,
+		() => "carElements",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (1234 * f0());

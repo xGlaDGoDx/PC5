@@ -25,17 +25,21 @@
         {
             "stage1": 
             {
-                "offset": {"x": -110, "y": 45}
+                "offset": {"x": -110, "y": 45},
+				"animation": {"x": -150, "y": 5}
             },
             
             "stage2": 
             {
-                "offset": {"x": -20, "y": 55}
+                "offset": {"x": -20, "y": 55},
+				"animation": {"x": -180, "y": 10}
+				
             },
 
             "stage3": 
             {
                 "offset": {"x": -25, "y": 20},
+				"animation": {"x": -245, "y": 10},
 				"top": true
             }
         },
@@ -100,17 +104,20 @@
         {
             "stage1": 
             {
-                "offset": {"x": -135, "y": 45}
+                "offset": {"x": -135, "y": 45},
+				"animation": {"x": -95, "y": -105, "rotation": 60}
             },
             
             "stage2": 
             {
                 "offset": {"x": -160, "y": 45},
+				"animation": {"x": -150, "y": -5},
                 "top": true
             },
 
             "stage3": 
             {
+				"animation": {"x": -150, "y": 0},
                 "offset": {"x": -160, "y": 45}
             }
         },
@@ -174,23 +181,21 @@
         {
             "stage1": 
             {
+				"animation": {"x": -150, "y": 5},
                 "offset": {"x": -145, "y": 25}
             },
             
             "stage2": 
             {
+				"animation": {"x": -150, "y": 5},
                 "offset": {"x": 0, "y": 45},
                 "top": true
             },
 
             "stage3": 
             {
+				"animation": {"x": -140, "y": 0},
                 "offset": {"x": -150, "y": 20}
-            },
-
-            "stage4": 
-            {
-                "offset": {"x": 0, "y": 0}
             }
         },
 
