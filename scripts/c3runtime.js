@@ -10306,6 +10306,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.custom.Acts.SetEnabled,
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.System.Cnds.PickByComparison,
+		C3.Plugins.Sprite.Cnds.IsVisible,
 		C3.Behaviors.Pin.Acts.Unpin,
 		C3.Plugins.AJAX.Cnds.OnAnyComplete,
 		C3.Plugins.Arr.Exps.Width,
@@ -10522,6 +10523,7 @@ self.C3_JsPropNameTable = [
 	{smokeAnimation: 0},
 	{JSON: 0},
 	{FileSystem: 0},
+	{buySlotButton: 0},
 	{Cards: 0},
 	{Avatars: 0},
 	{CarElements: 0},
@@ -10579,6 +10581,7 @@ self.C3_JsPropNameTable = [
 	{ColIndex: 0},
 	{ShopIndex: 0},
 	{ShopCar: 0},
+	{haveFreeSlot: 0},
 	{ColCar: 0},
 	{countSlotsForSpawn: 0},
 	{purchasedCars: 0},
@@ -12125,6 +12128,8 @@ self.C3_ExpressionFuncs = [
 		() => "Купить",
 		() => "Продать",
 		() => "1 1 1 0",
+		() => "buySlotButton",
+		() => "freeslots",
 		() => "CarShop",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
